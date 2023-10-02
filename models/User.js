@@ -9,9 +9,13 @@ const userSchema = mongoose.Schema({
         type: String,
         trim: true, //space 없에줌 ckd gml@naver.com > ckdgml@naver.com
     },
+    password: {
+        type: String,
+        minlength: 5
+    },
     lastname: {
         type: String,
-        maxlength: 50,
+        maxlength: 50
     },
     role: {
         type: Number,
@@ -19,10 +23,10 @@ const userSchema = mongoose.Schema({
     },
     image: String,
     token: {
-        type: String,
+        type: String
     },
     tokenExp: {
-        type: Number,
+        type: Number
     }
 })
 
