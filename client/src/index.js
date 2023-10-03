@@ -1,28 +1,31 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import { Provider } from 'react-redux';
-import 'antd/dist/antd.css'
-import { applyMiddleware } from 'redux';
-import promiseMiddleWare from 'redux-promise';
-import ReduxThunk from 'redux-thunk';
-import { createStore } from 'redux';
-import Reducer from './_renders';
+import React from 'react'
+// import ReactDOM from 'react-dom'
+import { createRoot } from 'react-dom/client';
+import './index.css'
+import { Provider } from 'react-redux'
+// import { applyMiddleware, createStore } from 'redux'
+import { configureStore } from '@reduxjs/toolkit'
+import App from './App'
 
+import promiseMiddleware from 'redux-promise'
+import thunk from 'redux-thunk'
+import reducers from './_reducers'
 
-const createStoreWithMiddleware = applyMiddleware(promiseMiddleWare, ReduxThunk)(createStore);
+const store = configureStore({
+  reducer: reducers,
+  middleware: [thunk, promiseMiddleware],
+  devTools: true
+});
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(
-  <Provider
-    store={createStoreWithMiddleware(Reducer,
-      window.__REDUX_DEVTOOLS_EXTENSION__ &&
-      window.__REDUX_DEVTOOLS_EXTENSION__()
-    )}
-  >
-    <React.StrictMode>
-      <App />
-    </React.StrictMode>
+// ReactDOM.render(
+//   <Provider store={store}>
+//     <App />
+//   </Provider>,
+//   document.getElementById('root')
+// );
+
+createRoot(document.getElementById('root')).render(
+  <Provider store={store}>
+    <App />
   </Provider>
 );
