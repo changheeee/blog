@@ -11,7 +11,6 @@ combineReducer을 이용해 Root Reducer에서 하나로 합쳐준다.
 */
 const rootReducer = combineReducers({
     user,
-    //comment,
 })
 
 export default rootReducer;
