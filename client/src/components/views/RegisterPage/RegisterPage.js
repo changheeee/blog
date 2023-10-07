@@ -10,8 +10,8 @@ function RegisterPage(props) {
     //서버로 보낼 값들을 state로 갖고 있음
     const [Email, setEmail] = useState("sum666@naver.com");
     const [Name, setName] = useState("min");
-    const [Password, setPassword] = useState("1234");
-    const [ConfirmPassword, setConfrimPassword] = useState("1234");
+    const [Password, setPassword] = useState("1234567");
+    const [ConfirmPassword, setConfrimPassword] = useState("1234567");
 
     const onEmailHandler = (event) => {
         setEmail(event.currentTarget.value)
