@@ -9,9 +9,11 @@ const { User } = require('./models/User.js');
 
 
 
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
+
 
 const mongoose = require('mongoose');
 mongoose.connect(config.mongoURI, {
@@ -23,12 +25,12 @@ mongoose.connect(config.mongoURI, {
     .catch(err => console.log(err));
 
 app.get('/', (req, res) => {
-    res.send('즐거운 추석입니다. 10월 2일');
+    res.send('');
 });
 
 
 app.get('/api/hello', (req, res) => {
-    res.send('안녕하세요 ~');
+    res.send('MovieApp입니다.');
 })
 
 
@@ -95,6 +97,11 @@ app.get('/api/users/logout', auth, async (req, res) => {
         return res.json({ success: false, err })
     }
 })
+
+app.use('/api/favorite', require('./routes/favorite'));
+app.use('/api/users', require('./routes/users'));
+app.use('/api/comment', require('./routes/comment'));
+app.use('/api/like', require('./routes/like'));
 
 
 

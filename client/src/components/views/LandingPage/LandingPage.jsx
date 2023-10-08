@@ -5,8 +5,8 @@ import { useNavigate } from 'react-router-dom';
 import { API_KEY, API_URL, IMAGE_BASE_URL } from '../../../Config';
 import { Row } from 'antd';
 
-import MainImage from './Sections/MainImage';
-import GridCards from '../../commons/GridCards';
+import MainImage from '../commons/MainImage';
+import GridCards from '../commons/GridCards';
 
 
 
@@ -19,7 +19,7 @@ function LandingPage() {
             .then(response => console.log(response.data))
     }, [])
 
-    const onClickHandelr = () => {
+    const onClickHandler = () => {
         axios.get('/api/users/logout')
             .then(response => {
                 if (response.data.success) {
@@ -31,27 +31,40 @@ function LandingPage() {
     }
 
     const [Movies, setMovies] = useState([]);
-    const [MainMovieImage, setMainMovieImage] = useState(null)
+    const [MainMovieImage, setMainMovieImage] = useState(null);
+    const [CurrentPage, setCurrentPage] = useState(0);
 
     useEffect(() => {
         //인기있는 영화 엔드포인트 지정
-        const endPoint = `${API_URL}/movie/popular?api_key=${API_KEY}&language=ko-KO&page=1`;
+        const endPoint = `${API_URL}movie/popular?api_key=${API_KEY}&language=ko-KO&page=1`;
 
+        fetchMovies(endPoint);
+
+    }, [])
+    const fetchMovies = (endPoint) => {
         //fetch로 현재 인기있는 영화 가져오기
         fetch(endPoint)
             .then(response => response.json())
             .then(response => {
-                console.log(response)
+                console.log(response);
                 //setMovies로 가져온 데이터를 배열에 넣기
-                setMovies([...response.results])
-                setMainMovieImage(response.results[0])
+                setMovies([...Movies, ...response.results]);
+                setMainMovieImage(...Movies, response.results[0]);
+                setCurrentPage(response.page);
             })
-    }, [])
+    }
 
+    const loadMoreItems = () => {
+        //인기있는 영화 엔드포인트 지정
+        const endPoint = `${API_URL}movie/popular?api_key=${API_KEY}&language=ko-KO&page=${CurrentPage + 1}`;
+        fetchMovies(endPoint);
+
+    }
 
     return (
         <div style={{ width: '100%', margin: '0' }}>
-            <button onClick={onClickHandelr}>로그아웃</button>
+            <a href="/favorite">Favorite</a>
+            <button onClick={onClickHandler}>로그아웃</button>
 
             {/* 메인 이미지 */}
             {MainMovieImage &&
@@ -59,6 +72,7 @@ function LandingPage() {
                     image={`${IMAGE_BASE_URL}w1280${MainMovieImage.backdrop_path}`}
                     title={MainMovieImage.title}
                     text={MainMovieImage.overview}
+                    tagline={MainMovieImage.tagline}
                 />
             }
 
@@ -70,24 +84,26 @@ function LandingPage() {
 
                 {/* Movie Grid Cards */}
 
+                <Row gutter={[16, 16]} >
 
-                {Movies && Movies.map((movie, index) => (
-                    <React.Fragment key={index}>
-                        <GridCards
-                            landingPage
-                            image={movie.poster_path ?
-                                `${IMAGE_BASE_URL}w500${movie.poster_path}` : null}
-                            movieId={movie.id}
-                            movieName={movie.original_title}
-                        />
-                    </React.Fragment>
-                ))}
+                    {Movies && Movies.map((movie, index) => (
+                        <React.Fragment key={index}>
+                            <GridCards
+                                landingPage
+                                image={movie.poster_path ?
+                                    `${IMAGE_BASE_URL}w500${movie.poster_path}` : null}
+                                movieId={movie.id}
+                                movieName={movie.original_title}
+                            />
+                        </React.Fragment>
+                    ))}
 
+                </Row>
 
             </div>
 
             <div style={{ display: 'flex', justifyContent: 'center' }}>
-                <button>더 보기</button>
+                <button onClick={loadMoreItems}>더 보기</button>
             </div>
         </div>
     )
