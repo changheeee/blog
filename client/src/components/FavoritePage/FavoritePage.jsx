@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import './favorite.css';
+
 import Axios from 'axios';
 import { Button, Popover } from 'antd';
 import { IMAGE_BASE_URL } from '../../Config';
@@ -45,14 +46,21 @@ function FavoritePage() {
             const content = (
                 <div>
                     {favorite.moviePost ?
-                        <img src={`${IMAGE_BASE_URL}w500${favorite.moviePost}`} /> : "no image"
+                        <div>
+                            <a href={`/movie/${favorite.movieId}`}><img src={`${IMAGE_BASE_URL}w500${favorite.moviePost}`} /></a>
+                        </div>
+                        : "no image"
                     }
-                </div>
+                </div >
             )
 
             return (
                 <tr key={index}>
-                    <Popover content={content} title={`${favorite.movieTitle}`}>
+                    <Popover
+                        content={content}
+                        title={`${favorite.movieTitle} `}
+                        placement="bottomLeft"
+                    >
                         <td>{favorite.movieTitle}</td>
                     </Popover>
 
@@ -64,7 +72,7 @@ function FavoritePage() {
 
 
     return (
-        <div style={{ width: '85%', margin: '3rem auto' }}>
+        <div style={{ width: '85%', margin: '0 auto', paddingTop: '70px' }}>
             <h2> Favorite Movies </h2>
             <hr />
 

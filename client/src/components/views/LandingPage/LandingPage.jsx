@@ -3,7 +3,7 @@ import axios from 'axios'
 // import { response } from 'express'
 import { useNavigate } from 'react-router-dom';
 import { API_KEY, API_URL, IMAGE_BASE_URL } from '../../../Config';
-import { Row } from 'antd';
+import { Button } from 'antd';
 
 import MainImage from '../commons/MainImage';
 import GridCards from '../commons/GridCards';
@@ -12,23 +12,6 @@ import GridCards from '../commons/GridCards';
 
 function LandingPage() {
 
-    const navigate = useNavigate();
-
-    useEffect(() => {
-        axios.get('api/hello')//서버측으로 주는 엔드포인트, 서버측 index.js에 get라우터 구현
-            .then(response => console.log(response.data))
-    }, [])
-
-    const onClickHandler = () => {
-        axios.get('/api/users/logout')
-            .then(response => {
-                if (response.data.success) {
-                    navigate('/login')
-                } else {
-                    //실패
-                }
-            })
-    }
 
     const [Movies, setMovies] = useState([]);
     const [MainMovieImage, setMainMovieImage] = useState(null);
@@ -63,9 +46,6 @@ function LandingPage() {
 
     return (
         <div style={{ width: '100%', margin: '0' }}>
-            <a href="/favorite">Favorite</a>
-            <button onClick={onClickHandler}>로그아웃</button>
-
             {/* 메인 이미지 */}
             {MainMovieImage &&
                 <MainImage
@@ -84,7 +64,7 @@ function LandingPage() {
 
                 {/* Movie Grid Cards */}
 
-                <Row gutter={[16, 16]} >
+                <div className='gridWrap' style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-around' }}>
 
                     {Movies && Movies.map((movie, index) => (
                         <React.Fragment key={index}>
@@ -98,12 +78,12 @@ function LandingPage() {
                         </React.Fragment>
                     ))}
 
-                </Row>
+                </div>
 
             </div>
 
             <div style={{ display: 'flex', justifyContent: 'center' }}>
-                <button onClick={loadMoreItems}>더 보기</button>
+                <Button onClick={loadMoreItems}>더 보기</Button>
             </div>
         </div>
     )

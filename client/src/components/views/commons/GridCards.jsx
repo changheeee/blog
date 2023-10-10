@@ -1,24 +1,28 @@
 import React from 'react'
-import { Col } from 'antd';
 
 function GridCards(props) {
     if (props.landingPage) {
         return (
-            <Col lg={6} md={8} xs={24}>
-                <div style={{ position: 'relative' }}>
+            <div>
+                <div >
                     <a href={`/movie/${props.movieId}`} >
-                        <img style={{ width: '100%', height: '320px' }} src={props.image} alt={props.movieName} />
+                        <img style={{
+                            minWidth: '230px',
+                            width: '100%',
+                            height: '320px',
+                            marginBottom: '1em'
+                        }} src={props.image} alt={props.movieName} />
                     </a>
                 </div>
-            </Col>
+            </div>
         )
     } else {
         return (
-            <Col lg={6} md={8} xs={24}>
-                <div style={{ position: 'relative' }}>
-                    <img style={{ width: '100%', height: '320px' }} src={props.image} alt={props.charactorName} />
+            <div >
+                <div>
+                    <img style={{ minWidth: '230px', width: '100%', height: '320px', marginBottom: '1em' }} src={props.image} alt={props.charactorName} />
                 </div>
-            </Col>
+            </div>
         )
     }
 }

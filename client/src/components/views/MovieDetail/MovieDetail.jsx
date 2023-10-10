@@ -90,7 +90,7 @@ function MovieDetail(props) {
                 </div>
 
                 {ActorToggle &&
-                    <Row gutter={[16, 16]} >
+                    <div className='gridWrap' style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-around' }}>
 
                         {Casts && Casts.map((cast, index) => (
                             <React.Fragment key={index}>
@@ -102,7 +102,7 @@ function MovieDetail(props) {
                             </React.Fragment>
                         ))}
 
-                    </Row>
+                    </div>
                 }
 
                 {/* Comments */}
