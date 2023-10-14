@@ -3,7 +3,7 @@ import { Menu } from 'antd';
 import axios from 'axios';
 import { USER_SERVER } from '../../../../Config';
 import { useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 function RightMenu(props) {
   const user = useSelector((state) => state.user);

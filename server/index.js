@@ -28,7 +28,7 @@ app.get('/', (req, res) => {
 
 
 app.get('/api/hello', (req, res) => {
-    res.send('MovieApp입니다.');
+    res.send('/api/hello OK!');
 })
 
 
@@ -88,6 +88,7 @@ app.post('/api/users/login', async (req, res) => {
     } catch (err) {
         return res.status(400).send(err)
     }
+
 })
 
 

@@ -49,3 +49,5 @@ export default function (SpecificComponent, option, adminRoute = null) {//ex6문
 
     return AuthenticationCeck;
 }
+
+

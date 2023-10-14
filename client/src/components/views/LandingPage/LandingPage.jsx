@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 import { API_KEY, API_URL, IMAGE_BASE_URL } from '../../../Config';
 import { Button, Carousel } from 'antd';
 

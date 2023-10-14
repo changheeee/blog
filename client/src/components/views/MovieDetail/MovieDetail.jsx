@@ -22,7 +22,7 @@ function MovieDetail(props) {
 
     useEffect(() => {
 
-        console.log(movieId)
+        console.log('movieId: ' + movieId)
 
         //영화 정보 
         let endPointInfo = `${API_URL}movie/${movieId}?api_key=${API_KEY}&language=ko-KO`;
@@ -99,6 +99,7 @@ function MovieDetail(props) {
                                         `${IMAGE_BASE_URL}w500${cast.profile_path}` : null}
                                     charactorName={cast.name}
                                     character={cast.character}
+                                    characterID={cast.id}
                                 />
                             </React.Fragment>
                         ))}

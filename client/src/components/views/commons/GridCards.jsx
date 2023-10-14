@@ -64,28 +64,32 @@ function GridCards(props) {
                     onMouseLeave={handleMouseLeave}
                     style={{ position: 'relative' }}>
                     {isHovered && (
-                        <div style={{
-                            display: 'flex',
-                            justifyContent: 'space-between',
-                            flexDirection: 'column',
-                            alignItems: 'center',
-                            padding: '10px',
-                            width: '100%',
-                            height: '320px',
-                            textAlign: 'center',
-                            position: 'absolute',
-                            top: '0',
-                            left: '0',
-                            color: '#fefefe',
-                            backgroundColor: '#0000007f',
-                            letterSpacing: '-0.04em'
-                        }}>
+                        //출연 배우 정보 tmdb 링크
+                        <a href={`https://www.themoviedb.org/person/${props.characterID}-${props.charactorName}`}
+                            target='_blank'
+                            style={{
+                                display: 'flex',
+                                justifyContent: 'space-between',
+                                flexDirection: 'column',
+                                alignItems: 'center',
+                                padding: '10px',
+                                width: '100%',
+                                height: '320px',
+                                textAlign: 'center',
+                                position: 'absolute',
+                                top: '0',
+                                left: '0',
+                                color: '#fefefe',
+                                backgroundColor: '#0000007f',
+                                letterSpacing: '-0.04em'
+                            }}>
                             <span style={{ alignSelf: 'flex-start', opacity: '0.7' }}>{props.character}</span>
                             <strong style={{ fontSize: '1.2em', alignSelf: 'flex-end', opacity: '0.9' }}>{props.charactorName}</strong>
-                        </div>
+                        </a>
                     )}
                     {/* 캐릭터 포스터 이미지 */}
                     <img style={{ minWidth: '230px', width: '100%', height: '320px', marginBottom: '1em' }} src={props.image} alt={props.charactorName} />
+
                 </div>
             </div>
         );
