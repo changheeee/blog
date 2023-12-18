@@ -33,6 +33,7 @@ function Comments(props) {
                 if (response.data.success) {
                     setComment("")
                     props.refreshFunction(response.data.result)
+                    console.log('saveSuccess');
                 } else {
                     alert('Failed to save Comment')
                 }
@@ -42,10 +43,13 @@ function Comments(props) {
     return (
         <div>
             <br />
-            <Title level={3} > Share your opinions about {props.movieTitle} </Title>
+            <Title level={3} >
+                <strong style={{ fontWeight: 'bold', color: '#333' }}>{props.movieTitle}</strong>
+                <span style={{ fontWeight: 'normal' }}> 에 대한 의견을 남겨주세요</span>
+            </Title>
             <hr />
             {/* Comment Lists  */}
-            {console.log(props.CommentLists)}
+            {/* {console.log(props.CommentLists)} */}
 
             {props.CommentLists && props.CommentLists.map((comment, index) => (
                 (!comment.responseTo &&
@@ -58,20 +62,20 @@ function Comments(props) {
 
             {props.CommentLists && props.CommentLists.length === 0 &&
                 <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '200px' }} >
-                    Be the first one who shares your thought about this movie
+                    이 영화에 대한 생각을 가장 먼저 공유해보세요!
                 </div>
             }
 
             {/* Root Comment Form */}
-            <form style={{ display: 'flex' }} onSubmit={onSubmit}>
+            <form style={{ display: 'flex', justifyContent: 'space-between' }} onSubmit={onSubmit}>
                 <TextArea
-                    style={{ width: '100%', borderRadius: '5px' }}
+                    style={{ width: '80%', borderRadius: '5px', resize: 'none' }}
                     onChange={handleChange}
                     value={Comment}
-                    placeholder="write some comments"
+                    placeholder="댓글을 작성하세요"
                 />
                 <br />
-                <Button style={{ width: '20%', height: '52px' }} onClick={onSubmit}>Submit</Button>
+                <Button style={{ width: '19.7%', height: '52px' }} onClick={onSubmit}>작성</Button>
             </form>
 
         </div>

@@ -108,7 +108,7 @@ function MovieDetail(props) {
                 }
 
                 {/* Comments */}
-                <Comments movieTitle={Movie.original_title} CommentLists={CommentLists} postId={movieId} refreshFunction={updateComment} />
+                <Comments movieTitle={Movie.title} CommentLists={CommentLists} postId={movieId} refreshFunction={updateComment} />
             </div>
 
         </div>

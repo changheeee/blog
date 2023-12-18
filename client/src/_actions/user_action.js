@@ -30,8 +30,8 @@ export function registerUser(dataTosubmit) {
 }
 
 export function auth() {
-
-    const request = axios.get('/api/users/auth')//get action
+    //get 요청 보내기
+    const request = axios.get('/api/users/auth')
         .then(response => response.data)
 
     return {

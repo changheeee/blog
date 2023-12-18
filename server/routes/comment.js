@@ -10,6 +10,7 @@ router.post("/saveComment", auth, async (req, res) => {
         await comment.save();
         const result = await Comment.find({ '_id': comment._id }).populate('writer').exec();
         return res.status(200).json({ success: true, result });
+
     } catch (err) {
         console.log(err);
         return res.json({ success: false, err });

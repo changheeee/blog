@@ -1,8 +1,11 @@
+import { axios } from "axios";
+// import { response } from 'express';
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { registerUser } from "../../../_actions/user_action";
+import { loginUser } from "../../../_actions/user_action";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+
 const SignWrap = styled.div`
   width: 100%;
   margin-top: 3rem;
@@ -33,8 +36,7 @@ const SignWrap = styled.div`
     display: flex;
     flex-direction: column;
     label {
-      font-weight: 600;
-      margin-top: 1rem;
+      margin-top: 0.5rem;
     }
     input {
       width: 100%;
@@ -64,105 +66,68 @@ const SignWrap = styled.div`
   }
 `;
 
-function RegisterPage(props) {
+function LoginPage(props) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   //서버로 보낼 값들을 state로 갖고 있음
-  const [Email, setEmail] = useState("");
-  const [Name, setName] = useState("");
+  const [Email, setEmail] = useState(""); //괄호 속에는 초기값, "": 빈칸으로 설정
   const [Password, setPassword] = useState("");
-  const [ConfirmPassword, setConfrimPassword] = useState("");
 
   const onEmailHandler = (event) => {
     setEmail(event.currentTarget.value);
-  };
-
-  const onNameHandler = (event) => {
-    setName(event.currentTarget.value);
   };
 
   const onPasswordHandler = (event) => {
     setPassword(event.currentTarget.value);
   };
 
-  const onConfrimPasswordHandler = (event) => {
-    setConfrimPassword(event.currentTarget.value);
-  };
-
   const onSubmitHandler = (event) => {
     event.preventDefault();
 
-    console.log("Email", Email);
-    console.log("Name", Name);
-    console.log("Password", Password);
-    console.log("ConfirmPassword", ConfirmPassword);
-
-    if (Password !== ConfirmPassword) {
-      return alert("비밀번호가 일치하지 않습니다.");
-    }
+    // console.log("Email", Email);
+    // console.log("Password", Password);
 
     let body = {
       email: Email,
-      name: Name,
       password: Password,
     };
 
-    dispatch(registerUser(body)).then((response) => {
-      if (response.payload.success) {
-        alert("MovieApp에 오신것을 환영합니다!");
-        navigate("/login"); //props.history.push('/') 페이지 이동시 사용
+    dispatch(loginUser(body)).then((response) => {
+      if (response.payload.loginSuccess) {
+        navigate("/"); //props.history.push('/') 페이지 이동시 사용
       } else {
-        alert("회원가입에 실패했습니다.");
+        alert("Error");
       }
     }); //dispatch: action을 store로 전달(파라미터: 입력받은 데이터(state) )
-  };
 
+    // redux 사용으로 해당코드는 action파일로 이동
+    // Axios.post('/api/user/login', body)//index.js에 만들어둔 api랑 같은 주소
+    //   .then(response => {})
+  };
   return (
     <SignWrap>
       <div className="formContainer">
-        <h2>회원가입</h2>
-
+        <h2>로그인</h2>
         <form onSubmit={onSubmitHandler}>
           <label>이메일</label>
           <input
-            required
             type="email"
             value={Email}
             placeholder="이메일을 입력하세요"
             onChange={onEmailHandler}
           />
-
-          <label>이름</label>
-          <input
-            required
-            type="text"
-            value={Name}
-            placeholder="이름을 입력하세요"
-            onChange={onNameHandler}
-          />
-
+          {/* 타이핑을 할 때 state를 바꿈(onChagne로) state가 바뀌면 value도 바뀌어서 타이핑이 가능 */}
           <label>비밀번호</label>
           <input
-            required
             type="password"
             value={Password}
             placeholder="비밀번호를 입력하세요"
             onChange={onPasswordHandler}
           />
-
-          <label>비밀번호 확인</label>
-          <input
-            required
-            type="password"
-            value={ConfirmPassword}
-            placeholder="비밀번호를 다시 입력하세요"
-            onChange={onConfrimPasswordHandler}
-          />
-
           <br />
           <button className="submit_btn" type="submit">
-            회원 가입
+            로그인
           </button>
         </form>
       </div>
@@ -170,4 +135,4 @@ function RegisterPage(props) {
   );
 }
 
-export default RegisterPage;
+export default LoginPage;

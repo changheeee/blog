@@ -14,30 +14,29 @@ import RegisterPage from './components/views/RegisterPage/RegisterPage'
 import Auth from './hoc/auth'
 import MovieDetail from './components/views/MovieDetail/MovieDetail';
 import FavoritePage from './components/FavoritePage/FavoritePage';
-// import NavBar from './components/views/NavBar/NavBar.jsx';
-import NavBar1 from './components/views/NavBar1/NavBar1';
+import NavBar from './components/views/NavBar/NavBar';
 
 
 function App() {
-  // const AuthLandingPage = Auth(LandingPage, null);
-  // const AuthLoginPage = Auth(LoginPage, false);
-  // const AuthRegisterPage = Auth(RegisterPage, false);
-  // const AuthMovieDetail = Auth(MovieDetail, null);
-  // const AuthFavoritePage = Auth(FavoritePage, true);
+  const AuthLandingPage = Auth(LandingPage, null);
+  const AuthLoginPage = Auth(LoginPage, false);
+  const AuthRegisterPage = Auth(RegisterPage, false);
+  const AuthMovieDetail = Auth(MovieDetail, null);
+  const AuthFavoritePage = Auth(FavoritePage, true);
 
 
   return (
     <>
 
       <Router>
-        <NavBar1 />
-        <div style={{ paddingBottom: '50px' }}>
+        <NavBar />
+        <div style={{ paddingTop: '70px', paddingBottom: '50px' }}>
           <Routes>
-            <Route path="/" Component={Auth(LandingPage, null)} />
+            {/* <Route path="/" Component={Auth(LandingPage, null)} />
             <Route path="/login" Component={Auth(LoginPage, false)} />
             <Route path="/register" Component={Auth(RegisterPage, false)} />
             <Route path="/movie/:movieId" Component={Auth(MovieDetail, null)} />
-            <Route path="/favorite" Component={Auth(FavoritePage, true)} />
+            <Route path="/favorite" Component={Auth(FavoritePage, true)} /> */}
 
             {/* 각 페이지 컴포넌트 내부에서 Auth HOC를 호출하도록 변경합니다. */}
             {/* <Route path="/" element={<LandingPage />} />
@@ -46,11 +45,11 @@ function App() {
             <Route path="/movie/:movieId" element={<MovieDetail />} />
             <Route path="/favorite" element={<FavoritePage />} /> */}
 
-            {/* <Route path="/" element={<AuthLandingPage />} />
+            <Route path="/" element={<AuthLandingPage />} />
             <Route path="/login" element={<AuthLoginPage />} />
             <Route path="/register" element={<AuthRegisterPage />} />
             <Route path="/movie/:movieId" element={<AuthMovieDetail />} />
-            <Route path="/favorite" element={<AuthFavoritePage />} /> */}
+            <Route path="/favorite" element={<AuthFavoritePage />} />
 
 
           </Routes>

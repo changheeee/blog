@@ -1,9 +1,9 @@
-import React from 'react';
-import { Menu } from 'antd';
-import axios from 'axios';
-import { USER_SERVER } from '../../../../Config';
-import { useSelector } from 'react-redux';
-import { useNavigate, Link } from 'react-router-dom';
+import React from "react";
+import { Menu } from "antd";
+import axios from "axios";
+import { USER_SERVER } from "../../../../Config";
+import { useSelector } from "react-redux";
+import { useNavigate, Link } from "react-router-dom";
 
 function RightMenu(props) {
   const user = useSelector((state) => state.user);
@@ -12,9 +12,9 @@ function RightMenu(props) {
   const logoutHandler = () => {
     axios.get(`${USER_SERVER}/logout`).then((response) => {
       if (response.status === 200) {
-        navigate('/login');
+        navigate("/login");
       } else {
-        alert('Log Out Failed');
+        alert("Log Out Failed");
       }
     });
   };
@@ -23,10 +23,10 @@ function RightMenu(props) {
     return (
       <Menu mode={props.mode}>
         <Menu.Item key="mail">
-          <a href="/login">Signin</a>
+          <Link to="/login">로그인</Link>
         </Menu.Item>
         <Menu.Item key="app">
-          <a href="/register">Signup</a>
+          <Link to="/register">회원가입</Link>
         </Menu.Item>
       </Menu>
     );
@@ -34,7 +34,7 @@ function RightMenu(props) {
     return (
       <Menu mode={props.mode}>
         <Menu.Item key="logout">
-          <a onClick={logoutHandler}>Logout</a>
+          <Link onClick={logoutHandler}>로그아웃</Link>
         </Menu.Item>
       </Menu>
     );
